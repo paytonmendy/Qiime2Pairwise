@@ -1,15 +1,15 @@
-#ifndef QIIME2DADA2PLUGIN_H
-#define QIIME2DADA2PLUGIN_H
+#ifndef QIIME2PAIRWISEPLUGIN_H
+#define QIIME2PAIRWISEPLUGIN_H
 
 #include "Plugin.h"
 #include "PluginProxy.h"
 #include <string>
 #include <vector>
 
-class Qiime2DADA2Plugin : public Plugin
+class Qiime2PairwisePlugin : public Plugin
 {
 public: 
- std::string toString() {return "Qiime2DADA2";}
+ std::string toString() {return "Qiime2Pairwise";}
  void input(std::string file);
  void run();
  void output(std::string file);
