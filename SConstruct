@@ -67,7 +67,7 @@ for lib in libs:
     if not config.CheckLib(lib):
         Exit(1)
 
-plugin = realpath("./Qiime2DADA2Plugin.cpp")
+plugin = realpath("./Qiime2PairwisePlugin.cpp")
 filesInPath = Glob(dirname(plugin) + "./*.cpp")
 pluginName = plugin.replace(".cpp", "")
 
