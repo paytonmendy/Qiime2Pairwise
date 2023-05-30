@@ -1,0 +1,2 @@
+Prefix plugins/Qiime2Pairwise/example
+Plugin Qiime2Pairwise inputfile parameters.qiime2.pairwise.txt outputfile sequences
