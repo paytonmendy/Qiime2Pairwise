@@ -1,4 +1,4 @@
-# Qiime2DADA2
+# Qiime2Pairwise
 # Language: C++
 # Input: TXT
 # Output: PREFIX
@@ -22,7 +22,7 @@ minoverlap: Minimum forward/reverse overlap
 
 
 The plugin will output three files:
-PREFIX-dada.qza
-PREFIX-rep-seqs.qza
-PREFIX-table.qza
+unweighted_unifrac_distance_matrix.qza
+shannon.qza
+pairwise-differences.qzv
 
