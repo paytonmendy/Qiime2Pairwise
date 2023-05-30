@@ -1,9 +1,9 @@
 #include "PluginManager.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "Qiime2DADA2Plugin.h"
+#include "Qiime2PairwisePlugin.h"
 
-void Qiime2DADA2Plugin::input(std::string file) {
+void Qiime2PairwisePlugin::input(std::string file) {
  inputfile = file;
  std::ifstream ifile(inputfile.c_str(), std::ios::in);
  while (!ifile.eof()) {
@@ -14,11 +14,11 @@ void Qiime2DADA2Plugin::input(std::string file) {
  }
 }
 
-void Qiime2DADA2Plugin::run() {
+void Qiime2PairwisePlugin::run() {
 
 }
 
-void Qiime2DADA2Plugin::output(std::string file) {
+void Qiime2PairwisePlugin::output(std::string file) {
    std::string command = "export OLDPATH=${PATH}; ";
    command += "export PATH=${CONDA_HOME}/bin/:${PATH}; ";
    command += "eval \"$(conda shell.bash hook)\"; ";
@@ -54,4 +54,4 @@ void Qiime2DADA2Plugin::output(std::string file) {
  system(command.c_str());
 }
 
-PluginProxy<Qiime2DADA2Plugin> Qiime2DADA2PluginProxy = PluginProxy<Qiime2DADA2Plugin>("Qiime2DADA2", PluginManager::getInstance());
+PluginProxy<Qiime2PairwisePlugin> Qiime2PairwisePluginProxy = PluginProxy<Qiime2PairwisePlugin>("Qiime2Pairwise", PluginManager::getInstance());
