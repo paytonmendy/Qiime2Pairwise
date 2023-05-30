@@ -1,4 +1,4 @@
-inputfile       sequences-paired-end-demux.qza
+inputfile       shannon.qza
 threads	1
 forwardtruncate	240
 reversetruncate	210
