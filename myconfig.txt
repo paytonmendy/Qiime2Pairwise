@@ -1,0 +1,86 @@
+# Using moving pictures and Q2L examples
+## Import data
+qiime tools import \
+  --type 'SampleData[PairedEndSequencesWithQuality]' \
+  --input-path /Users/pmendy/Desktop/Projects/ExerciseTester/manifest.csv \
+  --input-format PairedEndFastqManifestPhred33 \
+  --output-path demux-paired-end.qza
+
+  ## peek
+  qiime tools peek exercise_seqs_1.qza
+
+  # change names
+  mv exercise_seqs_1.qza demux.qza
+
+  ## view demux
+  qiime demux summarize \                                          
+  --i-data demux.qza \
+  --o-visualization demux.qzv
+
+  qiime tools view demux.qzv
+
+  ## denoise , change trim + trunc
+  qiime dada2 denoise-single \                                     
+  --i-demultiplexed-seqs demux.qza \
+  --p-trim-left 13 \
+  --p-trunc-len 150 \
+  --o-representative-sequences rep-seqs-dada2.qza \
+  --o-table table-dada2.qza \
+  --o-denoising-stats stats-dada2.qza
+
+  ## metadata tabulate
+  qiime metadata tabulate \                                        
+  --m-input-file stats-dada2.qza \
+  --o-visualization stats-dada2.qzv
+
+  ## more changing names
+mv rep-seqs-dada2.qza rep-seqs.qza                               
+mv table-dada2.qza table.qza 
+
+## not sure if neccesarry for this **
+qiime feature-table summarize \                                  
+  --i-table table.qza \
+  --o-visualization table.qzv \
+  --m-sample-metadata-file exercise_pairwise_metadata.tsv
+qiime feature-table tabulate-seqs \
+  --i-data rep-seqs.qza \
+  --o-visualization rep-seqs.qzv
+  
+qiime phylogeny align-to-tree-mafft-fasttree \                   
+  --i-sequences rep-seqs.qza \
+  --o-alignment aligned-rep-seqs.qza \
+  --o-masked-alignment masked-aligned-rep-seqs.qza \     
+  --o-tree unrooted-tree.qza \     
+  --o-rooted-tree rooted-tree.qza
+
+  ## end of not sure ^
+
+## shannon alpha diversity (make sure this one works)
+qiime diversity alpha \                                          
+  --i-table table.qza \       
+  --p-metric shannon \                
+  --o-alpha-diversity shannon.qza
+
+## beta diversity
+qiime diversity beta \                                           
+  --i-table table.qza \       
+ --p-metric braycurtis \             
+ --o-distance-matrix unweighted_unifrac_distance_matrix.qza
+
+ ## not sure if important 
+qiime feature-table relative-frequency \                         
+  --i-table table.qza \            
+  --o-relative-frequency-table relative_frequency_table.qza
+
+  ## finally!!! 
+  qiime longitudinal pairwise-differences \                        
+  --i-table shannon.qza \
+  --m-metadata-file metadata.tsv \
+  --p-metric 'shannon_entropy' \
+  --p-group-column diet \
+  --p-state-column timepoint \
+  --p-state-1 pre \
+  --p-state-2 post \
+  --p-individual-id-column patient_ID \
+  --p-replicate-handling random \
+  --o-visualization pairwise-differences.qzv
