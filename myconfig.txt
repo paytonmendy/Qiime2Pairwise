@@ -73,11 +73,12 @@ qiime feature-table relative-frequency \
   --o-relative-frequency-table relative_frequency_table.qza
 
   ## finally!!! 
-  qiime longitudinal pairwise-differences \                        
-  --i-table shannon.qza \
+
+qiime longitudinal pairwise-differences \
+  --m-metadata-file shannon.qza \
   --m-metadata-file metadata.tsv \
-  --p-metric 'shannon_entropy' \
-  --p-group-column diet \
+  --p-metric shannon_entropy \
+  --p-group-column gender \
   --p-state-column timepoint \
   --p-state-1 pre \
   --p-state-2 post \
